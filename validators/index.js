@@ -1,0 +1,1 @@
+module.exports.praktikanValidation = require('./praktikan.validation');
