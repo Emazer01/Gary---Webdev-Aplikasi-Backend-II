@@ -15,11 +15,21 @@ const getPraktikanByEmailAndTelepon  = [
 
 const insertPraktikan =  [
     body('nama').isLength({min: 8}),
-    body('jenis_kelamin').isIn('L','P'),
+    body('jenis_kelamin').isIn(['L','P']),
     body('angkatan').isInt({min: 2018}),
     body('email').isEmail(),
     body('telepon').isLength(12),
     body('deskripsi').notEmpty(),
+    validator
+]
+
+const insertBulkPraktikan  = [
+    body('*.nama').isLength({min: 8}),
+    body('*.jenis_kelamin').isIn(['L','P']),
+    body('*.angkatan').isInt({min: 2018}),
+    body('*.email').isEmail(),
+    body('*.telepon').isLength(12),
+    body('*.deskripsi').notEmpty(),
     validator
 ]
 
@@ -38,6 +48,7 @@ module.exports = {
     getPraktikanByName,
     getPraktikanByEmailAndTelepon,
     insertPraktikan,
+    insertBulkPraktikan,
     deletePraktikan,
     updatePraktikan
 }

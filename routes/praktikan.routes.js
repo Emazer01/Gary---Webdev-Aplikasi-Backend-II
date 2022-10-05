@@ -24,6 +24,7 @@ router.route("/:nama").get(
 router.route("/:nama").get(praktikanValidation.getPraktikanByName, praktikanController.getPraktikanByName);
 router.route("/:email/:telepon").get(praktikanValidation.getPraktikanByEmailAndTelepon, praktikanController.getPraktikanByEmailAndTelepon);
 router.route("/insert").post(praktikanValidation.insertPraktikan, praktikanController.insertPraktikan);
+router.route("/insertBulk").post(praktikanValidation.insertBulkPraktikan, praktikanController.insertBulkPraktikan);
 router.route("/delete").delete(praktikanValidation.deletePraktikan, praktikanController.deletePraktikan);
 router.route("/update").patch(praktikanValidation.updatePraktikan, praktikanController.updatePraktikan);
 

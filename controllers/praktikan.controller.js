@@ -48,6 +48,20 @@ const insertPraktikan = async (req, res) => {
     }
 }
 
+const insertBulkPraktikan = async (req, res) => {
+    try {
+        const result = await praktikanServices.insertBulkPraktikan(JSON.stringify(req.body));
+        
+        if(result instanceof Error) {
+            throw new Error(result);
+        }
+
+        res.status(responseHelper.status.success).json(result);
+    } catch (error) {
+        res.status(responseHelper.status.error).json(error.message);
+    }
+}
+
 const deletePraktikan = async (req, res) => {
     try {
         const { email } = req.body;
@@ -79,6 +93,7 @@ module.exports = {
     getPraktikanByName,
     getPraktikanByEmailAndTelepon,
     insertPraktikan,
+    insertBulkPraktikan,
     deletePraktikan,
     updatePraktikan
 }

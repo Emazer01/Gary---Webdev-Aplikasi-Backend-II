@@ -61,6 +61,30 @@ const insertPraktikan = async (nama, jenis_kelamin, angkatan, email, telepon, de
     }
 }
 
+const insertBulkPraktikan = async (POM) => {
+    try {
+        let BAN = []
+        JSON.parse(POM,(a,b)=>{BAN.push(b)})
+        for (let a=0;a<(BAN.length-1)/7;a++){
+            const query = `INSERT INTO praktikan_webdev VALUES ('${BAN[a*7]}','${BAN[(a*7)+1]}','${BAN[(a*7)+2]}','${BAN[(a*7)+3]}','${BAN[(a*7)+4]}','${BAN[(a*7)+5]}')`;
+            const result = await databaseQuery(query);
+            if (!result) {
+                throw new Error('Error inserting Data');
+            }
+            if (result.rowCount === 0) {
+                throw new Error('URL not found');
+            }
+        }
+        console.log(BAN)
+        console.log(POM)
+        return {
+            message: 'Data inserted successfully',
+        }; 
+    } catch (error) {
+        return error 
+    }
+}
+
 const deletePraktikan = async (email) => {
     try {
         // This is not safe, but it's just an example
@@ -74,7 +98,7 @@ const deletePraktikan = async (email) => {
             throw new Error('Data not found');
         }
         return {
-            message: 'URL deleted successfully',
+            message: 'Data deleted successfully',
         }; 
     } catch (error) {
         return error
@@ -106,6 +130,7 @@ module.exports =  {
     getPraktikanByName,
     getPraktikanByEmailAndTelepon,
     insertPraktikan,
+    insertBulkPraktikan,
     deletePraktikan,
     updatePraktikan
 }
